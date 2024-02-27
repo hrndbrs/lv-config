@@ -29,8 +29,8 @@ lvim.keys.normal_mode["<C-j>"] = "<CMD>call comfortable_motion#flick(50)<CR>"
 lvim.keys.normal_mode["<C-h>"] = "<CMD>call comfortable_motion#flick(-150)<CR>"
 lvim.keys.normal_mode["<C-l>"] = "<CMD>call comfortable_motion#flick(150)<CR>"
 
-lvim.keys.normal_mode["<M-w>"] = "<CMD>bprev<CR>"
-lvim.keys.normal_mode["<M-e>"] = "<CMD>bnext<CR>"
+lvim.keys.normal_mode["<S-Tab>"] = "<CMD>bprev<CR>"
+lvim.keys.normal_mode["<Tab>"] = "<CMD>bnext<CR>"
 lvim.keys.normal_mode["<M-q>"] = "<CMD>bp|bd #<CR>"
 
 lvim.keys.normal_mode["<M-d>"] = ":%s/"
