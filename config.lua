@@ -36,12 +36,11 @@ lvim.builtin.alpha.dashboard.section.header.val = {
   [[                                                                       ]],
 }
 
+-- Telescope
 lvim.builtin.telescope.theme = "center"
 lvim.builtin.telescope.defaults.file_ignore_patterns = { "node_modules" }
-lvim.builtin.nvimtree.setup.filters.custom = {}
 
 -- LSP Config
-
 require("lvim.lsp.manager").setup("cssls", {
   settings = {
     css = {
@@ -86,7 +85,6 @@ lspconfig.emmet_ls.setup({
 })
 
 -- Formatters & Linters
-
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   { name = "black" },
@@ -107,15 +105,22 @@ linters.setup {
 
 local code_actions = require "lvim.lsp.null-ls.code_actions"
 code_actions.setup {
-  {
-    name = "eslint_d",
-  },
+  { name = "eslint_d" }
 }
 
+-- NvimTree
+local nvimtree = lvim.builtin.nvimtree
+
+nvimtree.setup.filters.custom = {}
+
 -- Miscelaneous
+local lualine = lvim.builtin.lualine
+local bufferline = lvim.builtin.bufferline
 -- lvim.colorscheme = "material-palenight"
 lvim.colorscheme = "carbonfox"
-lvim.builtin.lualine.style = "default"
-lvim.builtin.lualine.sections.lualine_c = { "buffers" }
-lvim.builtin.lualine.sections.lualine_x = { "diff", "encoding", "fileformat", "filetype" }
-lvim.builtin.bufferline.active = false
+
+lualine.style = "default"
+lualine.sections.lualine_c = { "buffers" }
+lualine.sections.lualine_x = { "diff", "encoding", "fileformat", "filetype" }
+
+bufferline.active = false
