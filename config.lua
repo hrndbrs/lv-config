@@ -18,27 +18,14 @@ lvim.leader = "space"
 reload("plugins")
 reload("keymaps")
 
-lvim.builtin.alpha.dashboard.section.header.val = {
-  [[                                                                       ]],
-  [[                                                                       ]],
-  [[                                                                       ]],
-  [[                                                                       ]],
-  [[                                                                     ]],
-  [[       ████ ██████           █████      ██                     ]],
-  [[      ███████████             █████                             ]],
-  [[      █████████ ███████████████████ ███   ███████████   ]],
-  [[     █████████  ███    █████████████ █████ ██████████████   ]],
-  [[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
-  [[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
-  [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
-  [[                                                                       ]],
-  [[                                                                       ]],
-  [[                                                                       ]],
-}
+local ascii = require("ascii")
+
+lvim.builtin.alpha.dashboard.section.header.val = ascii.art.text.neovim.sharp
+-- reload("alpha-header")
 
 -- Telescope
 lvim.builtin.telescope.theme = "center"
-lvim.builtin.telescope.defaults.file_ignore_patterns = { "node_modules" }
+-- lvim.builtin.telescope.defaults.file_ignore_patterns = { "node_modules" }
 
 -- LSP Config
 require("lvim.lsp.manager").setup("cssls", {
@@ -64,15 +51,36 @@ require("lvim.lsp.manager").setup("cssls", {
   },
 })
 
+local pyright_opts = {
+  single_file_support = true,
+  settings = {
+    pyright = {
+      disableLanguageServices = false,
+      disableOrganizeImports = false,
+      reportIncompatibleVariableOverride = false,
+    },
+    python = {
+      analysis = {
+        autoImportCompletions = true,
+        autoSearchPaths = true,
+        diagnosticMode = "workspace", -- openFilesOnly, workspace
+        typeCheckingMode = "basic",   -- off, basic, strict
+        useLibraryCodeForTypes = true
+      }
+    }
+  },
+}
+
+require("lvim.lsp.manager").setup("pyright", pyright_opts)
+
 local lspconfig = require("lspconfig")
--- local configs = require("lspconfig/configs")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 lspconfig.emmet_ls.setup({
   capabilities = capabilities,
-  filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue" },
+  filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue", "php" },
   init_options = {
     html = {
       options = {
@@ -99,7 +107,7 @@ formatters.setup {
 
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  { name = "flake8" },
+  -- { name = "flake8" },
   { name = "eslint_d" }
 }
 
@@ -117,7 +125,9 @@ nvimtree.setup.filters.custom = {}
 local lualine = lvim.builtin.lualine
 local bufferline = lvim.builtin.bufferline
 -- lvim.colorscheme = "material-palenight"
-lvim.colorscheme = "carbonfox"
+-- lvim.colorscheme = "carbonfox"
+-- lvim.colorscheme = "tokyonight-storm"
+lvim.colorscheme = "solarized-osaka"
 
 lualine.style = "default"
 lualine.sections.lualine_c = { "buffers" }

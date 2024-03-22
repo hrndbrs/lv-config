@@ -1,5 +1,52 @@
 lvim.plugins = {
   {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "MaximilianLloyd/ascii.nvim",
+    dependencies = {
+      "MunifTanjim/nui.nvim"
+    }
+  },
+  {
+    "craftzdog/solarized-osaka.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "folke/trouble.nvim",
+    cmd = { "TroubleToggle", "Trouble" },
+    keys = {
+      { "<leader>x",        desc = "Trouble" },
+      { "<leader>x" .. "X", "<CMD>TroubleToggle workspace_diagnostics<CR>", desc = "Workspace diagnostics" },
+      { "<leader>x" .. "x", "<CMD>TroubleToggle document_diagnostics<CR>",  desc = "Document diagnostics" },
+      { "<leader>x" .. "q", "<CMD>TroubleToggle quickfix<CR>",              desc = "Quickfix list (Trouble)" },
+    },
+    opts = {
+      use_diagnostic_signs = true,
+      action_keys = {
+        close = { "q", "<esc>" },
+        cancel = "<C-e>"
+      }
+    }
+  },
+  {
+    "Wansmer/treesj",
+    keys = {
+      {
+        "<leader>m",
+        "<CMD>TSJToggle<CR>",
+        desc = "Toggle treesitter join"
+      }
+    },
+    cmd = { "TSJToggle", "TSJSplit", "TSJJoin" },
+    opts = { use_default_keymaps = false },
+  },
+  {
     "NvChad/nvim-colorizer.lua",
     event = "User FilePost",
     config = function(_, opts)
@@ -76,7 +123,7 @@ lvim.plugins = {
         options = {
           compile_path = vim.fn.stdpath("cache") .. "/nightfox",
           compile_file_suffix = "_compiled",
-          -- transparent = true,
+          transparent = true,
           terminal_colors = true,
           dim_inactive = false,
           module_default = true,
