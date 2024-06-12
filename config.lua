@@ -92,6 +92,18 @@ lspconfig.emmet_ls.setup({
   }
 })
 
+lspconfig.tailwindcss.setup({
+  settings = {
+    tailwindCSS = {
+      experimental = {
+        classRegex = {
+          { "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
+          { "cx\\(([^)]*)\\)",  "(?:'|\"|`)([^']*)(?:'|\"|`)" }
+        },
+      },
+    },
+  },
+})
 -- Formatters & Linters
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
@@ -108,7 +120,7 @@ formatters.setup {
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
   -- { name = "flake8" },
-  { name = "eslint_d" }
+  -- { name = "eslint_d" }
 }
 
 local code_actions = require "lvim.lsp.null-ls.code_actions"
@@ -126,8 +138,8 @@ local lualine = lvim.builtin.lualine
 local bufferline = lvim.builtin.bufferline
 -- lvim.colorscheme = "material-palenight"
 -- lvim.colorscheme = "carbonfox"
--- lvim.colorscheme = "tokyonight-storm"
-lvim.colorscheme = "solarized-osaka"
+lvim.colorscheme = "tokyonight-storm"
+-- lvim.colorscheme = "solarized-osaka"
 
 lualine.style = "default"
 lualine.sections.lualine_c = { "buffers" }
