@@ -11,6 +11,7 @@ vim.opt.encoding = "UTF-8"
 vim.opt.shiftwidth = 2
 vim.opt.textwidth = 80
 vim.opt.expandtab = true
+vim.opt.breakindent = true
 
 
 lvim.leader = "space"
@@ -111,9 +112,9 @@ formatters.setup {
   {
     name = "prettier",
     ---@usage arguments to pass to the formatter
-    args = { "--print-width", "100" },
+    -- args = { "--print-width", "100" },
     ---@usage only start in these filetypes, by default it will attach to all filetypes it supports
-    filetypes = { "typescript", "typescriptreact", "css", "cssls", "vue" },
+    -- filetypes = { "typescript", "typescriptreact", "css", "cssls", "vue" },
   },
 }
 
@@ -137,8 +138,8 @@ nvimtree.setup.filters.custom = {}
 local lualine = lvim.builtin.lualine
 local bufferline = lvim.builtin.bufferline
 -- lvim.colorscheme = "material-palenight"
--- lvim.colorscheme = "carbonfox"
-lvim.colorscheme = "tokyonight-storm"
+lvim.colorscheme = "carbonfox"
+-- lvim.colorscheme = "tokyonight-storm"
 -- lvim.colorscheme = "solarized-osaka"
 
 lualine.style = "default"
