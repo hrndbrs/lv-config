@@ -4,7 +4,7 @@ lvim.plugins = {
     lazy = false,
     dependencies = {
       'nvim-lua/plenary.nvim',
-      'stevearc/dressing.nvim',   -- optional for vim.ui.select
+      'stevearc/dressing.nvim', -- optional for vim.ui.select
     },
     config = true,
   },
@@ -46,8 +46,6 @@ lvim.plugins = {
     cmd = { "TroubleToggle", "Trouble" },
     keys = {
       { "<leader>x",        desc = "Trouble" },
-      -- { "<leader>x" .. "X", "<CMD>Trouble Toggle workspace_diagnostics<CR>", desc = "Workspace diagnostics" },
-      -- { "<leader>x" .. "x", "<CMD>Trouble Toggle document_diagnostics<CR>",  desc = "Document diagnostics" },
       { "<leader>x" .. "X", "<CMD>Trouble diagnostics toggle filter.buf=0<CR>", desc = "Document diagnostics" },
       { "<leader>x" .. "x", "<CMD>Trouble diagnostics toggle<CR>",              desc = "Document diagnostics" },
       { "<leader>x" .. "q", "<CMD>Trouble quickfix toggle<CR>",                 desc = "Quickfix list (Trouble)" },
