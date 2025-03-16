@@ -110,7 +110,7 @@ lspconfig.dartls.setup({
 
 lspconfig.emmet_ls.setup({
   capabilities = capabilities,
-  filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue", "php" },
+  filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue", "php", "htmldjango" },
   init_options = {
     html = {
       options = {
@@ -137,13 +137,13 @@ lspconfig.tailwindcss.setup({
 -- Formatters & Linters
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { name = "black" },
+  { name = "black", filetypes = { "python" } },
   {
     name = "prettier",
     ---@usage arguments to pass to the formatter
     -- args = { "--print-width", "100" },
     ---@usage only start in these filetypes, by default it will attach to all filetypes it supports
-    -- filetypes = { "typescript", "typescriptreact", "css", "cssls", "vue" },
+    filetypes = { "typescript", "typescriptreact", "css", "cssls", "vue", "html", "htmldjango", "javascript", "javascriptreact" },
   },
 }
 
