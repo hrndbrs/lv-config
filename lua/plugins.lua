@@ -2,8 +2,7 @@ lvim.plugins = {
   {
     'akinsho/flutter-tools.nvim',
     lazy = false,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim',
       'stevearc/dressing.nvim', -- optional for vim.ui.select
     },
     config = true,
@@ -14,6 +13,7 @@ lvim.plugins = {
       require("rust-tools").setup({
         server = {
           on_attach = function(_, bufnr)
+            local rt = require("rust-tools")
             -- Hover actions
             vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
             -- Code action groups
@@ -185,5 +185,39 @@ lvim.plugins = {
 
       -- setup must be called before loading
     end
+  },
+
+  -- LSP
+  require("lsp.java"),
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "InsertEnter",
+    opts = {
+      -- cfg options
+    },
+  },
+
+  -- Formatters
+  {
+    "stevearc/conform.nvim",
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      formatters_by_ft = {
+        php = { "php-cs-fixer" },
+      },
+      formatters = {
+        ["php-cs-fixer"] = {
+          command = "php-cs-fixer",
+          args = {
+            "fix",
+            "--rules=@PSR12", -- Formatting preset. Other presets are available, see the php-cs-fixer docs.
+            "$FILENAME",
+          },
+          stdin = false,
+        },
+      },
+      notify_on_error = true,
+    },
   }
 }

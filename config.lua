@@ -80,6 +80,7 @@ local util = require 'lspconfig.util'
 
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+-- Dart LSP
 lspconfig.dartls.setup({
   default_config = {
     cmd = { 'dart', 'language-server', '--protocol=lsp' },
@@ -108,6 +109,7 @@ lspconfig.dartls.setup({
   },
 })
 
+-- Emmet LSP
 lspconfig.emmet_ls.setup({
   capabilities = capabilities,
   filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "svelte", "pug", "typescriptreact", "vue", "php", "htmldjango" },
@@ -122,6 +124,7 @@ lspconfig.emmet_ls.setup({
   }
 })
 
+-- Tailwind CSS LSP
 lspconfig.tailwindcss.setup({
   settings = {
     tailwindCSS = {
@@ -134,10 +137,80 @@ lspconfig.tailwindcss.setup({
     },
   },
 })
+
+-- SQL LSP
+lspconfig.sqlls.setup({
+  default_config = {
+    cmd = { 'sql-language-server', 'up', '--method', 'stdio' },
+    filetypes = { 'sql', 'mysql' },
+    root_dir = util.root_pattern '.sqllsrc.json',
+    settings = {},
+  },
+  docs = {
+    description = [[
+https://github.com/joe-re/sql-language-server
+
+This LSP can be installed via  `npm`. Find further instructions on manual installation of the sql-language-server at [joe-re/sql-language-server](https://github.com/joe-re/sql-language-server).
+<br>
+    ]],
+  },
+})
+
+-- PHP Intelephense LSP
+local intelephense_bin_name = "intelephense"
+
+lspconfig.intelephense.setup({
+  default_config = function()
+    return util.utf8_config {
+      cmd = { intelephense_bin_name, "--stdio" },
+      filetypes = { "php" },
+      root_dir = function(pattern)
+        local cwd  = vim.loop.cwd();
+        local root = util.root_pattern("composer.json", ".git")(pattern);
+
+        -- prefer cwd if root is a descendant
+        return util.path.is_descendant(cwd, root) and cwd or root;
+      end
+    }
+  end,
+
+  docs = {
+    description = [[
+https://intelephense.com/
+
+`intelephense` can be installed via `:LspInstall intelephense` or by yourself with `npm`:
+```sh
+npm install -g intelephense
+```
+]],
+    default_config = {
+      root_dir = [[root_pattern("composer.json", ".git")]],
+      on_init = [[function to handle changing offsetEncoding]],
+      capabilities = [[default capabilities, with offsetEncoding utf-8]],
+      init_options = [[{
+        storagePath = Optional absolute path to storage dir. Defaults to os.tmpdir().
+        globalStoragePath = Optional absolute path to a global storage dir. Defaults to os.homedir().
+        licenceKey = Optional licence key or absolute path to a text file containing the licence key.
+        clearCache = Optional flag to clear server state. State can also be cleared by deleting {storagePath}/intelephense
+        -- See https://github.com/bmewburn/intelephense-docs#initialisation-options
+      }]],
+      settings = [[{
+        intelephense = {
+          files = {
+            maxSize = 1000000;
+          };
+        };
+        -- See https://github.com/bmewburn/intelephense-docs#configuration-options
+      }]],
+    },
+  },
+})
+
 -- Formatters & Linters
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { name = "black", filetypes = { "python" } },
+  { name = "sqlfmt", filetypes = { "sql" } },
+  { name = "black",  filetypes = { "python" } },
   {
     name = "prettier",
     ---@usage arguments to pass to the formatter
